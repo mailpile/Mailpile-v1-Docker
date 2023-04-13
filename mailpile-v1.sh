@@ -1,5 +1,7 @@
 #!/bin/bash
-if [ "$1" == "daemon" ]; then
+if [ "$1" == "update" ]; then
+    exec docker pull mailpile/mailpile-v1
+elif [ "$1" == "daemon" ]; then
     DOCKER_HOW="-d"
 elif [ "$1" == "run" ]; then
     DOCKER_HOW="-it"
@@ -7,6 +9,7 @@ else
     cat <<tac
 Usage:
 
+  $0 pull    # Pull the latest Mailpile image from Docker hub
   $0 run     # Run in the foreground (displays console logs)
   $0 daemon  # Run in the background
 
@@ -29,5 +32,5 @@ exec docker run $DOCKER_HOW --rm \
     -v /home/:/home/ \
     -e MAILPILE_PROFILE="${MAILPILE_PROFILE:-default}" \
     -e MAILPILE_DOCKER_USER="$MDU" \
-    mailpile-v1 \
+    mailpile/mailpile-v1 \
     docker-user-wrap mailpile --www="0.0.0.0:$MPP/" --wait
