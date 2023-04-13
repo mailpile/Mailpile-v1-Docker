@@ -1,0 +1,18 @@
+FROM debian:stretch-slim
+
+RUN apt-get update && \
+    apt-get install -y curl apt-transport-https gnupg && \
+    curl -s https://packages.mailpile.is/deb/key.asc | apt-key add - && \
+    echo "deb https://packages.mailpile.is/deb release main" | tee /etc/apt/sources.list.d/000-mailpile.list && \
+    apt-get update && \
+    apt-get install -y mailpile mailpile-apache2 && \
+    update-rc.d tor defaults && \
+    service tor start && \
+    apt-get clean
+
+EXPOSE 33411
+WORKDIR /
+VOLUME /home
+COPY tools/docker-user-wrap.sh /usr/sbin/docker-user-wrap
+
+#CMD docker-user-wrap mailpile --www=0.0.0.0:33411/ --wait
