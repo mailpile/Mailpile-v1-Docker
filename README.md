@@ -20,9 +20,14 @@ This assumes you already have `git` and `docker` installed.
     $ git clone https://github.com/mailpile/Mailpile-v1-Docker
     $ cd Mailpile-v1-Docker
 
+    # Display some instructions
+    $ ./mailpile-v1.sh
+
+    # Launch Mailpile
     $ ./mailpile-v1.sh run
 
-This will pull the latest image from Docker Hub and launch it.
+**Note:** This will pull the latest image from Docker Hub and launch it.
+Yes this is a binary blob, thank you for trusting me!
 
 
 ## How to build and run your own images:
@@ -38,7 +43,7 @@ This assumes you already have `git` and `docker` installed.
     # Run it!
     $ ./mailpile-v1.sh run
 
-Note that this will install Mailpile using packages from the project's
+This builds an image by installing Mailpile packages from the project's
 Debian repository. This may fail at some point, if the repo is taken
 offline, keys expire or the Debian image we build upon become unusable.
 
